@@ -44,7 +44,7 @@ function App() {
       <div className="container">
         <h2>FreshMart Grocery</h2>
         <div className="products">
-          {products.map((p, i) => (
+          {products?.map((p, i) => (
             <div key={i} className="card">
               <h3>{p.name}</h3>
               <p>{p.price}</p>
