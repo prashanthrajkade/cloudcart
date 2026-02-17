@@ -17,25 +17,33 @@ function App() {
   const [message, setMessage] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const register = async () => {
-    const res = await axios.post("http://localhost:5000/register", {
-      email,
-      password,
-      mobile,
-    });
-    setMessage(res.data.message);
+    try {
+      const res = await axios.post(`${API_URL}/register`, {
+        email,
+        password,
+        mobile,
+      });
+      setMessage(res.data.message);
+    } catch (err) {
+      console.error(err);
+      setMessage("Registration failed. Check backend or network.");
+    }
   };
 
   const login = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/login", {
+      const res = await axios.post(`${API_URL}/login`, {
         email,
         password,
       });
       setMessage(res.data.message);
       setLoggedIn(true);
     } catch (err) {
-      setMessage("Login failed");
+      console.error(err);
+      setMessage("Login failed. Check credentials or backend.");
     }
   };
 
@@ -44,7 +52,7 @@ function App() {
       <div className="container">
         <h2>FreshMart Grocery</h2>
         <div className="products">
-          {products?.map((p, i) => (
+          {products.map((p, i) => (
             <div key={i} className="card">
               <h3>{p.name}</h3>
               <p>{p.price}</p>
