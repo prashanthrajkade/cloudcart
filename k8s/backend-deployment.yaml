@@ -27,10 +27,10 @@ kind: Service
 metadata:
   name: backend
 spec:
-  type: NodePort              
+  type: NodePort              # MUST be NodePort
   selector:
     app: backend
   ports:
     - port: 5000
       targetPort: 5000
-      nodePort: 32000         # pick any port 30000-32767
+      nodePort: 32000         # must be in 30000-32767
